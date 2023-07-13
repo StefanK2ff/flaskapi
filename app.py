@@ -14,10 +14,6 @@ def load_data(path):
     return csv_data
 
 
-#data = load_data('./data/persons.csv')
-
-#print(data)
-
 # sets up the server
 app = Flask(__name__)
 
