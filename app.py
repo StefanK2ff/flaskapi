@@ -1,28 +1,19 @@
-from flask import Flask, jsonify
-import csv
+from flask import Flask
 
-print("Main app, Hello")
+def create_app():
+    app = Flask(__name__)
 
+    # Register routes
+    from routes.data import data_bp
+    from routes.id import id_bp
+    from routes.name import name_bp
 
-# loads the data from the CSV file
-def load_data(path):
-    csv_data = []
-    with open(path, 'r', newline='', encoding='utf-8-sig') as file:
-        reader = csv.DictReader(file, delimiter=",")
-        for row in reader:
-            csv_data.append(row)
-    return csv_data
+    app.register_blueprint(data_bp)
+    app.register_blueprint(id_bp)
+    app.register_blueprint(name_bp)
 
-
-# sets up the server
-app = Flask(__name__)
-
-
-@app.route('/api/data', methods=['GET'])
-def get_data():
-    data = load_data('./data/persons.csv')
-    return jsonify(data)
-
+    return app
 
 if __name__ == '__main__':
+    app = create_app()
     app.run()
