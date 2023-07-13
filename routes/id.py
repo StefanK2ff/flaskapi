@@ -3,10 +3,12 @@ from models.data_model import load_data
 
 id_bp = Blueprint('id_bp', __name__)
 
+
 @id_bp.route('/api/id/<int:id>', methods=['GET'])
 def get_data_by_id(id):
     data = load_data()
-    record = next((item for item in data if item['id'] == id), None)
+    print("hello 1")
+    record = next((item for item in data if item['ID'] == id), None)
     if record:
         return jsonify(record)
     else:
